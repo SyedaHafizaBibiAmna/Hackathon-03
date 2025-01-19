@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -21,7 +22,7 @@ export default function ShoppingCartModal() {
     redirectToCheckout,
   } = useShoppingCart();
 
-  async function handleCheckoutClick(event: any) {
+  async function handleCheckoutClick(event:  React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     try {
       const result = await redirectToCheckout();
@@ -32,6 +33,38 @@ export default function ShoppingCartModal() {
       console.log(error);
     }
   }
+
+//   return (
+//     <div>
+//       {/* Add your modal content and button to trigger checkout */}
+//       <button onClick={handleCheckoutClick}>Proceed to Checkout</button>
+//       {/* Other modal content goes here */}
+//     </div>
+//   );
+// }
+
+// export default function ShoppingCartModal() {
+//   const {
+//     cartCount,
+//     shouldDisplayCart,
+//     handleCartClick,
+//     cartDetails,
+//     removeItem,
+//     totalPrice,
+//     redirectToCheckout,
+//   } = useShoppingCart();
+
+//   async function handleCheckoutClick(event: any) {
+//     event.preventDefault();
+//     try {
+//       const result = await redirectToCheckout();
+//       if (result?.error) {
+//         console.log("result");
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw]">

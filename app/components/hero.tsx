@@ -13,7 +13,7 @@ async function getData() {
 
 export default async function Hero() {
   const data = await getData();
-  console;
+  console.log(data)
   return (
     <section className="mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl lg:px-8">
       <div className="mb-8 flex flex-wrap justify-between md:mb-16">
@@ -33,7 +33,7 @@ export default async function Hero() {
               src={urlFor(data.image1).url()}
               alt="Great Photo"
               className="h-full w-full object-cover object-center"
-              //   priority
+                priority
               width={500}
               height={500}
             />
@@ -46,7 +46,7 @@ export default async function Hero() {
               className="h-full w-full object-cover object-center"
               width={500}
               height={500}
-              //   priority
+                priority
             />
           </div>
         </div>
