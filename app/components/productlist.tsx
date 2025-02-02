@@ -1,6 +1,6 @@
 "use client";
 import { simplifiedProduct } from "@/sanity/interface";
-import {client} from '../../sanity/lib/client';
+
 
 import { Badge, ShoppingCart } from "lucide-react";
 
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination"; // Assuming you have a Pagination component
 import Image from "next/image";
+import { client } from "@/sanity/lib/client";
 
 // Fetch data with pagination support
 async function getData(page: number, limit: number) {
