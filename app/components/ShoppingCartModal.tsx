@@ -10,6 +10,7 @@ import {
 
 
 import { useShoppingCart } from "use-shopping-cart";
+import Image from 'next/image';
 
 export default function ShoppingCartModal() {
   const {
@@ -34,37 +35,6 @@ export default function ShoppingCartModal() {
     }
   }
 
-//   return (
-//     <div>
-//       {/* Add your modal content and button to trigger checkout */}
-//       <button onClick={handleCheckoutClick}>Proceed to Checkout</button>
-//       {/* Other modal content goes here */}
-//     </div>
-//   );
-// }
-
-// export default function ShoppingCartModal() {
-//   const {
-//     cartCount,
-//     shouldDisplayCart,
-//     handleCartClick,
-//     cartDetails,
-//     removeItem,
-//     totalPrice,
-//     redirectToCheckout,
-//   } = useShoppingCart();
-
-//   async function handleCheckoutClick(event: any) {
-//     event.preventDefault();
-//     try {
-//       const result = await redirectToCheckout();
-//       if (result?.error) {
-//         console.log("result");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw]">
@@ -82,7 +52,7 @@ export default function ShoppingCartModal() {
                   {Object.values(cartDetails ?? {}).map((entry) => (
                     <li key={entry.id} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                        <img
+                        <Image
                           src={entry.image as string}
                           alt="Product image"
                           width={100}

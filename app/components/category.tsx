@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
-import { simplifiedProduct } from "@/sanity/interface";
+import { simplifiedProduct } from "@/sanity/interface"
+import Image from "next/image";
+
 
 async function getData() {
   const query = `*[_type == "categories"][0...3] {
@@ -21,20 +23,20 @@ export default async function CategoryPage() {
   const data: simplifiedProduct[] = await getData();
 
   return (
-    <section className="w-full px-4 py-[7rem] md:px-6">
-      <div className="mx-auto max-w-7xl">
-        <h2 className="text-5xl tracking-tight mb-8">
+    <section className="w-full px-4 py-[7rem] md:px-6 ">
+      <div className="mx-auto max-w-7xl reveal-on-scroll">
+        <h2 className="text-5xl tracking-tight mb-8 font-bold">
           Top Categories
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((product) => (
             <Link
               key={product._id}
-              href={`/product/${product.slug}`}
+              href={"/shop"}
               className="group relative overflow-hidden rounded-lg"
             >
               <div className="aspect-[4/3] w-full">
-                <img
+                <Image
                   src={product.imageUrl}
                   alt={product.title}
                   className="object-cover transition-transform duration-300 group-hover:scale-105"

@@ -1,81 +1,12 @@
-// import Link from "next/link";
-
-// import Image from "next/image";
-// import { client } from "@/sanity/lib/client";
-// import { simplifiedProduct } from "@/sanity/interface";
-
-// async function getData() {
-//   const query = `*[_type == "product"][0...8] {
-//         _id,
-//           "imageUrl": image.asset->url,
-//           price,
-//           title,
-//           "slug": slug.current,
-//           "categoryName": category->name
-//       }`;
-
-//   const data = await client.fetch(query);
-
-//   return data;
-// }
-
-// export const dynamic = "force-dynamic";
-
-// export default async function CategoryPage() {
-//   const data: simplifiedProduct[] = await getData();
-
-//   return (
-//     <div className="bg-white">
-//       <div className="mx-auto max-w-2xl px-4 sm:px-6  lg:max-w-7xl lg:px-8">
-//         <div className="flex justify-between items-center">
-//           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-//             Our Products for {}
-//           </h2>
-//         </div>
-
-//         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-//           {data.map((product) => (
-//             <div key={product._id} className="group relative">
-//               <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-//                 <img
-//                   src={product.imageUrl}
-//                   alt="Product image"
-//                   className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-//                   width={300}
-//                   height={300}
-//                 />
-//               </div>
-
-//               <div className="mt-4 flex justify-between">
-//                 <div>
-//                   <h3 className="text-sm text-gray-700">
-//                     <Link href={`/product/${product.slug}`}>
-//                       {product.title}
-//                     </Link>
-//                   </h3>
-//                   <p className="mt-1 text-sm text-gray-500">
-//                     {product.categoryName}
-//                   </p>
-//                 </div>
-//                 <p className="text-sm font-medium text-gray-900">
-//                   ${product.price}
-//                 </p>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 import Link from "next/link";
 import { simplifiedProduct } from "@/sanity/interface";
 import { client } from "@/sanity/lib/client";
 import { ArrowRight, Badge, ShoppingCart } from "lucide-react";
+import Image from "next/image";
 
 
 async function getData() {
-  const query = `*[_type == "product"][8..15] | order(_createdAt desc) {
+  const query = `*[_type == "product"][1...9] | order(_createdAt desc) {
   _id,
   title,
   price,
@@ -148,7 +79,7 @@ export default async function Newest() {
   //   </div>
   // );
   return (
-    <div className="container mx-auto px-4 py-20">
+    <div className="container mx-auto px-4 py-20 reveal-on-scroll ">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           Our Newest products
@@ -156,7 +87,7 @@ export default async function Newest() {
 
         <Link
           className="text-primary flex items-center gap-x-1"
-          href="/productPage"
+          href={'/products'}
         >
           See All{" "}
           <span>
@@ -170,16 +101,16 @@ export default async function Newest() {
             <div className="relative aspect-square overflow-hidden rounded-lg">
               {product.badge && (
                 <Badge className="absolute left-3 top-3 bg-emerald-500 hover:bg-emerald-600">
-                  New
+                
                 </Badge>
               )}
-              {product.badge && (
+              {/* {product.badge && (
                 <Badge className="absolute left-3 top-3 bg-orange-500 hover:bg-orange-600">
                   Sales
                 </Badge>
-              )}
-              <Link href={"components/productDectription/discription"}>
-                <img
+              )} */}
+              <Link href={`/detail/${product._id}`}>
+                <Image
                   src={product.imageUrl}
                   alt={product.title}
                   height={400}

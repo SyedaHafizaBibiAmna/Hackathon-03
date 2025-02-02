@@ -7,14 +7,17 @@ export interface simplifiedProduct{
     title: string;
     badge:string;
     priceWithoutDiscount:number
+    tags:string
 }
 export interface fullProduct{
     price_id: string;
-    _id: string;
-    imageurl: string;
+    _id: number;
+    imageUrl: string;
     price: number;
     slug: string
     categoryName: string;
     title: string;
     description: string;
+    priceWithoutDiscount:number
+    tags:string
 }

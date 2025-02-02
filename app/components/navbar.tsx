@@ -1,55 +1,83 @@
 "use client";
 
-
+import { useState } from "react";
 import Link from "next/link";
-// import React from "react";
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
+import { GiSofa } from "react-icons/gi";
 import { useShoppingCart } from "use-shopping-cart";
+import { usePathname } from "next/navigation";
+import NavbarSearch from "./navbarSearch";
 
-const links=[
-    {name:'Home',href:'/'},
-    {name:'Chairs',href:'/chairs'},
-    // {name:'Dining Chair',href:'/dining-chair'}, 
-    {name:'Sofas',href:'/sofas'},
-    {name:'Office Chair',href:'/office-chair'},
+const links = [
+  { name: "Home", href: "/" },
+  { name: "Shop", href: "/shop" },
+  { name: "Product", href: "/products" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
-
-
 export default function Navbar() {
-    const pathname = usePathname()
-    const { handleCartClick } = useShoppingCart();
-    console.log(pathname)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const { handleCartClick } = useShoppingCart();
+
+  // Toggle menu function
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Close menu when a link is clicked
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
-    <header className="mb-8 border-b">
-      <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
+    <header className="mb-8 border-b relative">
+      <div className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
         <Link href={"/"}>
-        <h1 className="text-2xlmd:text-4xl font-bold">
-            Sit <span className="text-primary">& Style Studio</span></h1>
+          <h1 className="text-2xl md:text-4xl font-bold flex items-center">
+            <GiSofa className="text-purple-600 mr-2" />
+            Sit <span className="text-primary">& Style Studio</span>
+          </h1>
         </Link>
 
-        <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-            {links.map((link, idx)=>(
-                <div key={idx}>
-                    {pathname === link.href ? (
-                        <Link 
-                        className="text-lg font-semibold text-primary" href={link.href}>
-                          {link.name}
-                            </Link>
-                    ):(
-                        <Link href={link.href} className="text-lg font-semibold text-gray-600 hover:text-primary">
-                            {link.name} 
+        {/* Responsive Menu Button */}
+        <button
+          onClick={toggleMenu}
+          className="block lg:hidden rounded-md bg-gray-100 p-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+        >
+          {isMenuOpen ? "✖" : "☰"}
+        </button>
 
-                        </Link>
-                    )}
-                    
-                </div>
+        {/* Navigation Links (Mobile & Desktop) */}
+        <nav
+          className={`absolute left-0 top-[4.5rem] z-50 w-full bg-white shadow-md transition-all duration-300 ease-in-out ${
+            isMenuOpen ? "block" : "hidden"
+          } lg:static lg:flex lg:w-auto lg:shadow-none`}
+          style={{ top: "5rem" }} // Moves the menu slightly below the navbar
+        >
+          <div className="flex flex-col items-start space-y-4 px-6 py-4 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-8 lg:p-0">
+            {links.map((link, idx) => (
+              <div key={idx}>
+                <Link
+                  href={link.href}
+                  className={`text-lg font-semibold ${
+                    pathname === link.href
+                      ? "text-primary"
+                      : "text-gray-600 hover:text-primary"
+                  }`}
+                  onClick={closeMenu} // Closes menu on click
+                >
+                  {link.name}
+                </Link>
+              </div>
             ))}
-            </nav>
-            <div className="flex divide-x border-r sm:border-l">
-            <Button
+            <NavbarSearch/>
+          </div>
+          
+        </nav>
+
+        {/* Cart Button */}
+        <div className="flex divide-x border-r sm:border-l">
+          <Button
             variant={"outline"}
             onClick={() => handleCartClick()}
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none"
@@ -59,81 +87,8 @@ export default function Navbar() {
               Cart
             </span>
           </Button>
-            </div>
-
+        </div>
       </div>
     </header>
   );
 }
-
-
-// "use client";
-
-// import Link from "next/link";
-// import React, { useState } from "react";
-
-// const Navbar = () => {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
-//   };
-
-//   return (
-//     <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-//   <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4">
-//     {/* Left-aligned Desktop Menu */}
-//     <div className="flex items-center gap-8">
-//       <Link
-//         href="/"
-//         className="text-[#007580] hover:text-blue-600 transition-colors duration-300 text-[14px] font-medium"
-//       >
-//         Home
-//       </Link>
-//       <Link
-//         href="/cart"
-//         className="text-[#736c90] hover:text-blue-600 transition-colors duration-300 text-[14px] font-medium"
-//       >
-//         Shop
-//       </Link>
-//       <Link
-//         href="/product"
-//         className="text-[#736c90] hover:text-blue-600 transition-colors duration-300 text-[14px] font-medium"
-//       >
-//         Product
-//       </Link>
-//       <Link
-//         href="/faq"
-//         className="text-[#736c90] hover:text-blue-600 transition-colors duration-300 text-[14px] font-medium"
-//       >
-//         Pages
-//       </Link>
-//       <Link
-//         href="/about"
-//         className="text-[#736c90] hover:text-blue-600 transition-colors duration-300 text-[14px] font-medium"
-//       >
-//         About
-//       </Link>
-//       <Link
-//         href="/contact"
-//         className="text-[#736c90] hover:text-blue-600 transition-colors duration-300 text-[14px] font-medium"
-//       >
-//         Contact Us
-//       </Link>
-//     </div>
-
-//     {/* Right-aligned Contact Information */}
-//     <div className="flex items-center gap-2">
-//       <span className="font-normal text-[#636270] text-[14px]">Contact:</span>
-//       <span className="font-medium text-[#272343] text-[14px]">
-//         (808) 555-0111
-//       </span>
-//     </div>
-//   </div>
-// </nav>
-
-//   );
-// };
-
-// export default Navbar;
-

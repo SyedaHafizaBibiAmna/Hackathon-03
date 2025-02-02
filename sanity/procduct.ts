@@ -46,6 +46,7 @@ export default{
             type: 'number',
             
         },
+        
         {
           name: 'price_id',
           title: 'Stripe Price ID',
