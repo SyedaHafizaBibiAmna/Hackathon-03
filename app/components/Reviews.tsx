@@ -6,14 +6,14 @@ import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
 interface Review {
-  id: string;
+  id: string|number;
   rating: number;
   comment: string;
   date: string;
 }
 
 interface ReviewsProps {
-  productId: string;
+  productId: number;
   initialReviews?: Review[];}
 
 export default function Reviews({  initialReviews = [] }: ReviewsProps) {
